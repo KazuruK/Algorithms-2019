@@ -2,6 +2,9 @@ package lesson1;
 
 import kotlin.NotImplementedError;
 
+import java.io.*;
+import java.util.*;
+
 @SuppressWarnings("unused")
 public class JavaTasks {
     /**
@@ -98,9 +101,63 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-    static public void sortTemperatures(String inputName, String outputName) {
-        throw new NotImplementedError();
+
+ /*   public static void main(String[] args) {
+        sortTemperatures("input//temp_in1.txt", "output//outputName.txt");
     }
+*/
+
+    static public void sortTemperatures(String inputName, String outputName) {
+        Map<Double, Integer> tempWithCounts = parseSortTemperaturesFile(inputName);
+        writeMapTempInFile(tempWithCounts, outputName);
+    }
+
+
+
+    private static Map<Double, Integer> parseSortTemperaturesFile(String inputFileName){
+
+        try (BufferedReader input = new BufferedReader(new FileReader(new File(inputFileName)))) {
+
+            String temperaturesAtString = input.readLine();
+            Map<Double, Integer> quantityToUniqueTemperature = new TreeMap<>();
+
+            while (temperaturesAtString != null) {
+
+                //System.out.println(temperaturesAtString + "ЗНАЧЕНИЯ ДОЛЖНЫ БЫТЬ ТУТАЧКИ");
+                Double temperatures = Double.parseDouble(temperaturesAtString);
+
+                if (quantityToUniqueTemperature.get(temperatures) == null) {
+                    quantityToUniqueTemperature.put(temperatures, 1);
+                } else {
+                    quantityToUniqueTemperature.merge(temperatures, 1, Integer::sum);
+                }
+
+                temperaturesAtString = input.readLine();
+            }
+            return quantityToUniqueTemperature;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static void writeMapTempInFile(Map<Double, Integer> mapTemp, String outputFileName){
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))){
+
+            for (Double key : mapTemp.keySet()) {
+                for (int i = 0; i < mapTemp.get(key); i++) {
+                    writer.write(key.toString() + System.lineSeparator());
+                    //System.out.println(key.toString());
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Сортировка последовательности
@@ -131,8 +188,95 @@ public class JavaTasks {
      * 2
      * 2
      */
+
+   /*public static void main(String[] args) {
+        sortSequence("input//seq_in3.txt", "output//outputName.txt");
+    }*/
+
     static public void sortSequence(String inputName, String outputName) {
-        throw new NotImplementedError();
+
+        writeListNumInFile(parseSortSequenceFile(inputName), outputName);
+
+    }
+
+
+    private static List<Integer> parseSortSequenceFile(String inputFileName){
+
+        try (BufferedReader input = new BufferedReader(new FileReader(new File(inputFileName)))) {
+
+            String numAtString = input.readLine();
+            List<Integer> numbers = new ArrayList<>();
+            Map<Integer,Integer> numbersWithCounts = new HashMap<>();
+
+            while (numAtString != null) {
+                Integer num = Integer.parseInt(numAtString);
+                numbers.add(num);
+
+                if (numbersWithCounts.get(num) == null) {
+                    numbersWithCounts.put(num, 1);
+                } else {
+                    numbersWithCounts.merge(num, 1, Integer::sum);
+                }
+
+                numAtString = input.readLine();
+            }
+            int maxValue = 0;
+            int highestValueKey = -1;
+
+            for (Map.Entry<Integer, Integer> entry : numbersWithCounts.entrySet()) {
+                int value = entry.getValue();
+                int key =  entry.getKey();
+
+                if (value > maxValue) { maxValue = value; highestValueKey = key;}
+                if (value == maxValue) {if (highestValueKey > key) highestValueKey = key;}
+            }
+
+            //Попробовать итерироваться
+            List<Integer> newNumbers = new ArrayList<>();
+
+            for (int i : numbers) {
+                if (i != highestValueKey) newNumbers.add(i);
+            }
+            for (int i = 0; i < maxValue; i++) {
+                newNumbers.add(highestValueKey);
+            }
+            return newNumbers;
+
+            /**Итератор работает в среднем на 20-40 миллисекунд дольше
+
+             /*Iterator<Integer> i = numbers.iterator();
+             while (i.hasNext()) {
+             int s = i.next(); // must be called before you can call i.remove()
+             // Do something
+             if(s == highestValueKey)
+             i.remove();
+             }
+
+             for (int j = 0; j < maxValue; j++) {
+             numbers.add(highestValueKey);
+             }
+             Stopwatch.stop("general");
+             return numbers;**/
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static void writeListNumInFile(List <Integer> list, String outputFileName){
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))){
+
+            for (int i : list) {
+                writer.write(i + System.lineSeparator());
+                //System.out.println(i);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -149,7 +293,18 @@ public class JavaTasks {
      *
      * Результат: second = [1 3 4 9 9 13 15 20 23 28]
      */
+
+
     static <T extends Comparable<T>> void mergeArrays(T[] first, T[] second) {
-        throw new NotImplementedError();
+
+        int i = 0;
+
+        while (second[i] == null){
+            second[i] = first[i];
+            i++;
+        }
+
+        Arrays.sort(second);
+
     }
 }

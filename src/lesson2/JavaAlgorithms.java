@@ -3,6 +3,7 @@ package lesson2;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
+import java.util.Arrays;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -84,8 +85,18 @@ public class JavaAlgorithms {
      * Общий комментарий: решение из Википедии для этой задачи принимается,
      * но приветствуется попытка решить её самостоятельно.
      */
+    /*public static void main(String[] args) {
+        System.out.println(josephTask(8, 5));
+    }*/
+
     static public int josephTask(int menNumber, int choiceInterval) {
-        throw new NotImplementedError();
+        double x = choiceInterval * (double) menNumber;
+        while(x > menNumber) {
+            x = (long)((choiceInterval * (x - menNumber) - 1) / (choiceInterval - 1));
+        }
+        System.out.println(menNumber + " menNumber; " + choiceInterval + " choiceInterval; " + (int)x + " Done; ");
+        return (int)x;
+
     }
 
     /**
@@ -113,9 +124,33 @@ public class JavaAlgorithms {
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
      */
+   /* public static void main(String[] args) {
+        int i = calcPrimesNumber(2);
+        System.out.println(i);
+    }*/
+
     static public int calcPrimesNumber(int limit) {
-        throw new NotImplementedError();
+        if ( limit <= 0 || limit == 1 ) return  0;
+
+        boolean[] primes = new boolean[limit+1];
+        int count = 0;
+
+        Arrays.fill(primes, true);
+
+        for (int i = 2; i < primes.length; i++) {
+
+            if (primes[i]) {
+                count++;
+
+                for (int j = 2; i * j < primes.length; j++) {
+                    primes[i * j] = false;
+//                    System.out.println(count + " Counts");
+                }
+            }
+        }
+        return count;
     }
+
 
     /**
      * Балда
