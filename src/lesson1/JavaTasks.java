@@ -101,11 +101,10 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-
- /*   public static void main(String[] args) {
+/** T(n)=O(n), R(n)=O(1) **/
+ public static void main(String[] args) {
         sortTemperatures("input//temp_in1.txt", "output//outputName.txt");
     }
-*/
 
     static public void sortTemperatures(String inputName, String outputName) {
         Map<Double, Integer> tempWithCounts = parseSortTemperaturesFile(inputName);
@@ -188,7 +187,7 @@ public class JavaTasks {
      * 2
      * 2
      */
-
+ /** T(n)=O(n), R(n)=O(n)**/
    /*public static void main(String[] args) {
         sortSequence("input//seq_in3.txt", "output//outputName.txt");
     }*/
@@ -294,7 +293,7 @@ public class JavaTasks {
      * Результат: second = [1 3 4 9 9 13 15 20 23 28]
      */
 
-
+/** T(n)=O(n log n), R(n)=O(1) **/
     static <T extends Comparable<T>> void mergeArrays(T[] first, T[] second) {
 
         int i = 0;

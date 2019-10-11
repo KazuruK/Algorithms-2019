@@ -85,6 +85,7 @@ public class JavaAlgorithms {
      * Общий комментарий: решение из Википедии для этой задачи принимается,
      * но приветствуется попытка решить её самостоятельно.
      */
+/** T(n)=O(n), R(n)=O(1) **/
     /*public static void main(String[] args) {
         System.out.println(josephTask(8, 5));
     }*/
@@ -128,7 +129,7 @@ public class JavaAlgorithms {
         int i = calcPrimesNumber(2);
         System.out.println(i);
     }*/
-
+/** ________, R(n)=O(n) **/
     static public int calcPrimesNumber(int limit) {
         if ( limit <= 0 || limit == 1 ) return  0;
 
