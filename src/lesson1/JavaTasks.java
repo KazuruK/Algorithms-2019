@@ -7,7 +7,7 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class JavaTasks {
-    /**
+    /*
      * Сортировка времён
      *
      * Простая
@@ -41,7 +41,7 @@ public class JavaTasks {
         throw new NotImplementedError();
     }
 
-    /**
+    /*
      * Сортировка адресов
      *
      * Средняя
@@ -71,7 +71,7 @@ public class JavaTasks {
         throw new NotImplementedError();
     }
 
-    /**
+    /*
      * Сортировка температур
      *
      * Средняя
@@ -101,10 +101,13 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-/** T(n)=O(n), R(n)=O(1) **/
- public static void main(String[] args) {
-        sortTemperatures("input//temp_in1.txt", "output//outputName.txt");
+    /*
+     * T(n)=O(n), R(n)=O(1)
+     */
+    public static void main(String[] args) {
+        sortTemperatures("input//temp_in2.txt", "output//outputName2.txt");
     }
+
 
     static public void sortTemperatures(String inputName, String outputName) {
         Map<Double, Integer> tempWithCounts = parseSortTemperaturesFile(inputName);
@@ -158,7 +161,7 @@ public class JavaTasks {
     }
 
 
-    /**
+    /*
      * Сортировка последовательности
      *
      * Средняя
@@ -187,7 +190,11 @@ public class JavaTasks {
      * 2
      * 2
      */
- /** T(n)=O(n), R(n)=O(n)**/
+
+
+    /* T(n)=O(n), R(n)=O(n)*/
+
+
    /*public static void main(String[] args) {
         sortSequence("input//seq_in3.txt", "output//outputName.txt");
     }*/
@@ -241,7 +248,7 @@ public class JavaTasks {
             }
             return newNumbers;
 
-            /**Итератор работает в среднем на 20-40 миллисекунд дольше
+            /*Итератор работает в среднем на 20-40 миллисекунд дольше
 
              /*Iterator<Integer> i = numbers.iterator();
              while (i.hasNext()) {
@@ -255,7 +262,7 @@ public class JavaTasks {
              numbers.add(highestValueKey);
              }
              Stopwatch.stop("general");
-             return numbers;**/
+             return numbers;*/
 
 
         } catch (Exception e) {
@@ -278,7 +285,9 @@ public class JavaTasks {
         }
     }
 
-    /**
+
+
+    /*
      * Соединить два отсортированных массива в один
      *
      * Простая
@@ -293,7 +302,7 @@ public class JavaTasks {
      * Результат: second = [1 3 4 9 9 13 15 20 23 28]
      */
 
-/** T(n)=O(n log n), R(n)=O(1) **/
+    /* T(n)=O(n log n), R(n)=O(1) */
     static <T extends Comparable<T>> void mergeArrays(T[] first, T[] second) {
 
         int i = 0;

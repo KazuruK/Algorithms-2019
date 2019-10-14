@@ -1,9 +1,12 @@
 package lesson2
 
+import org.junit.jupiter.api.assertThrows
 import java.io.BufferedWriter
 import java.io.File
+import java.lang.Exception
 import java.util.*
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 abstract class AbstractAlgorithmsTests {
 
@@ -66,6 +69,13 @@ abstract class AbstractAlgorithmsTests {
         assertEquals(50000000, josephTask(50000000, 1))
         assertEquals(3, josephTask(8, 5))
         assertEquals(28, josephTask(40, 3))
+        //Тут начианются мои тесты josephTask
+        assertEquals(52966662, josephTask(2147483647, 15))
+        assertEquals(2147483647, josephTask(2147483647, 1))
+        assertFailsWith<Exception> { josephTask(-1, 1) }
+        assertFailsWith<Exception> { josephTask(1, -1) }
+        assertFailsWith<Exception> { josephTask(-1, -1) }
+        //Тут тесты josephTask заканчиваются
         var menNumber = 2
         for (i in 1..20) {
             assertEquals(1, josephTask(menNumber, 2))
@@ -144,6 +154,9 @@ abstract class AbstractAlgorithmsTests {
         assertEquals(148933, calcPrimesNumber(2000000))
         assertEquals(348513, calcPrimesNumber(5000000))
         assertEquals(664579, calcPrimesNumber(10000000))
+        //Я правда не понимаю зачем мне добавлять свои тесты, если все краевые и интересные значения уже проверяны
+        //Поэтому вот мой тест calcPrimesNumber
+        assertEquals(4791, calcPrimesNumber(46327))
     }
 
     fun baldaSearcher(baldaSearcher: (String, Set<String>) -> Set<String>) {
