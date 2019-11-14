@@ -84,13 +84,18 @@ public class JavaAlgorithms {
      *
      * Общий комментарий: решение из Википедии для этой задачи принимается,
      * но приветствуется попытка решить её самостоятельно.
+     *
+     *
+     * Оценка трудоемкости и ресурсоемкости:
+     *  T(n)=O(n), R(n)=O(1)
      */
-/** T(n)=O(n), R(n)=O(1) **/
-    /*public static void main(String[] args) {
-        System.out.println(josephTask(8, 5));
+
+  /*  public static void main(String[] args) throws Exception {
+       josephTask(-20, 1);
     }*/
 
-    static public int josephTask(int menNumber, int choiceInterval) {
+    static public int josephTask(int menNumber, int choiceInterval) throws Exception {
+        if ( menNumber <= 0 || choiceInterval <= 0) throw new Exception("Incorrect input");
         double x = choiceInterval * (double) menNumber;
         while(x > menNumber) {
             x = (long)((choiceInterval * (x - menNumber) - 1) / (choiceInterval - 1));
@@ -124,12 +129,16 @@ public class JavaAlgorithms {
      *
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
+     *
+     *
+     * Оценка трудоемкости и ресурсоемкости:
+     * ________, R(n)=O(n)
      */
-   /* public static void main(String[] args) {
-        int i = calcPrimesNumber(2);
+    /*public static void main(String[] args) {
+        int i = calcPrimesNumber();
         System.out.println(i);
     }*/
-/** ________, R(n)=O(n) **/
+
     static public int calcPrimesNumber(int limit) {
         if ( limit <= 0 || limit == 1 ) return  0;
 
