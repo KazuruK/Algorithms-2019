@@ -124,7 +124,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 /* Определяем функцию трансплант, которая заменяет поддерево,
  являющееся дочернем по отношению к поддереву, другим родителем.
  глава 12.3, стр 330.*/
-
     private void transplant(Node<T> to, Node<T> from) {
         if (to.parent == null) {
             root = from;
