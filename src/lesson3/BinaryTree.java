@@ -140,7 +140,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 /* Для реализации удаления в дереве переданного объекта, создадим функцию удаления Nod'а
  глава 12.3, стр 331.*/
 
-    private boolean deleteNode(Node node) {
+    private boolean deleteNode(Node<T> node) {
         // Добавим в исходный алгоритм проверку на null
         if (node == null) return false;
         // Для случая отсутствия левого дочернего узла
