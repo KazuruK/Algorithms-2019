@@ -13,7 +13,7 @@ import java.util.*;
 
 // Attention: comparable supported but comparator is not
 public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implements CheckableSortedSet<T> {
-// добавил переменную родителя
+    // добавил переменную родителя
     private static class Node<T> {
         final T value;
 
@@ -32,49 +32,49 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
  Они нужны для удаления элемента из дерева
  глава 12.2, стр 324*/
 
-    Node<T> minimum() {
-        Node<T> current = this;
-        while (current.left != null) {
-            current = current.left;
+        Node<T> minimum() {
+            Node<T> current = this;
+            while (current.left != null) {
+                current = current.left;
+            }
+            return current;
         }
-        return current;
-    }
 
-    Node<T> maximum() {
-        Node<T> current = this;
-        while (current.right != null) {
-            current = current.right;
+        Node<T> maximum() {
+            Node<T> current = this;
+            while (current.right != null) {
+                current = current.right;
+            }
+            return current;
         }
-        return current;
-    }
 
 // Сгенерировал equals() и hashCode()
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Node)) return false;
-        Node<?> node = (Node<?>) o;
-        return Objects.equals(value, node.value) &&
-                Objects.equals(left, node.left) &&
-                Objects.equals(right, node.right) &&
-                Objects.equals(parent, node.parent);
-    }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Node)) return false;
+            Node<?> node = (Node<?>) o;
+            return Objects.equals(value, node.value) &&
+                    Objects.equals(left, node.left) &&
+                    Objects.equals(right, node.right) &&
+                    Objects.equals(parent, node.parent);
+        }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(value, left, right, parent);
+        @Override
+        public int hashCode() {
+            return Objects.hash(value, left, right, parent);
+        }
     }
-}
 
     private Node<T> root = null;
 
     private int size = 0;
 
-// исправил с наличием переменной под родителя
+    // исправил с наличием переменной под родителя
     @Override
     public boolean add(T t) {
-        Node<T> closest = find(t);
+        Node<T> closest = findNearest(t);
         int comparison = closest == null ? -1 : t.compareTo(closest.value);
         if (comparison == 0) {
             return false;
@@ -146,10 +146,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         // Для случая отсутствия левого дочернего узла
         if (node.left == null) {
             transplant(node, node.right);
-        // Левый существует, но нет правого
+            // Левый существует, но нет правого
         } else if (node.right == null) {
             transplant(node, node.left);
-        // Когда существуют оба дочерних узла
+            // Когда существуют оба дочерних узла
         } else {
             Node<T> y = node.right.minimum();
             if (y.parent != node) {
@@ -187,7 +187,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         Node<T> closest = find(t);
         return closest != null && t.compareTo(closest.value) == 0;
     }
-// Реализация поиска следующего элемента в дереве.
+    // Реализация поиска следующего элемента в дереве.
 // глава 12.2 стр 325.
     private Node<T> findNext(Node<T> x) {
         // Проверка что корень не null
@@ -208,25 +208,40 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         }
         return y;
     }
-
-    private Node<T> find(T value) {
+    // find переписана в findNearest, для поиска ближайшего объекта
+    private Node<T> findNearest(T value) {
         if (root == null) return null;
-        return find(root, value);
+        return findNearest(root, value);
     }
 
-    private Node<T> find(Node<T> start, T value) {
+    private Node<T> findNearest(Node<T> start, T value) {
         int comparison = value.compareTo(start.value);
         if (comparison == 0) {
             return start;
         }
         else if (comparison < 0) {
             if (start.left == null) return start;
-            return find(start.left, value);
+            return findNearest(start.left, value);
         }
         else {
             if (start.right == null) return start;
-            return find(start.right, value);
+            return findNearest(start.right, value);
         }
+    }
+    // Написан find для нахождения определенного значения в дереве
+    private Node<T> find(T value) {
+        return find(root, value);
+    }
+
+    private Node<T> find(Node<T> node, T value) {
+        while (node != null && !value.equals(node.value)) {
+            if (value.compareTo(node.value) < 0) {
+                node = node.left;
+            } else {
+                node = node.right;
+            }
+        }
+        return node;
     }
 
     public class BinaryTreeIterator implements Iterator<T> {
