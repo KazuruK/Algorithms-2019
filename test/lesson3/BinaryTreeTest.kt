@@ -84,7 +84,7 @@ class BinaryTreeTest {
         }
     }
 
-    // Мой тест отсюда ----------------------------------------------------------------------------------------------
+    // Мой тест отсюда ---------------------------------------------------------------------------------------------
     private fun testRemoveSecond(create: () -> CheckableSortedSet<Int>) {
         val random = Random()
         val list = mutableListOf<Int>()
